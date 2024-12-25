@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot</title>
+
+    <style>
+      /* Chatbot Container */
+      #chatbot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 350px;
+        max-width: 90%;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        display: none; /* Initially hidden */
+        flex-direction: column;
+      }
+
+      /* Chatbot Header */
+      #chatbot .header {
+        background-color: #003580;
+        color: white;
+        padding: 10px 15px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      #chatbot .header .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      /* Chat Window */
+      #chatbot .chat-window {
+        flex: 1;
+        padding: 10px;
+        background: #f9f9f9;
+        overflow-y: auto;
+      }
+
+      #chatbot .message {
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 80%;
+      }
+
+      #chatbot .message.user {
+        background: #00aaff;
+        color: white;
+        align-self: flex-end;
+      }
+
+      #chatbot .message.bot {
+        background: #f1f1f1;
+        color: #333;
+        align-self: flex-start;
+      }
+
+      /* Input Section */
+      #chatbot .input-section {
+        display: flex;
+        border-top: 1px solid #ddd;
+      }
+
+      #chatbot .input-section input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+      }
+
+      #chatbot .input-section button {
+        background: #00aaff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      #chatbot .input-section button:hover {
+        background: #0086cc;
+      }
+
+      /* Minimized Chat Button (Logo) */
+      #chatbot-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: transparent;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      #chatbot-button img {
+        width: 40px;
+        height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Chatbot -->
+    <div id="chatbot">
+      <div class="header">
+        Chatbot
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="chat-window" id="chat-window">
+        <!-- Chat messages will appear here -->
+      </div>
+      <div class="input-section">
+        <input type="text" id="chat-input" placeholder="Type your command..." />
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+
+    <!-- Minimized Chat Button (Logo) -->
+    <button id="chatbot-button">
+      <img src="images/chatbot.png" alt="Chatbot Icon" />
+    </button>
+
+    <!-- Scripts -->
+    <script>
+      // References to elements
+      const chatbot = document.getElementById("chatbot");
+      const chatbotButton = document.getElementById("chatbot-button");
+      const closeBtn = document.querySelector(".close-btn");
+      const sendBtn = document.getElementById("send-btn");
+      const chatInput = document.getElementById("chat-input");
+      const chatWindow = document.getElementById("chat-window");
+
+      let isCommandSelected = false; // To track whether a command is selected
+
+      // Toggle chatbot visibility
+      chatbotButton.addEventListener("click", () => {
+        chatbot.style.display = "flex"; // Show the chatbot
+        chatbotButton.style.display = "none"; // Hide the button (logo)
+        chatInput.focus(); // Focus on the input field
+      });
+
+      // Close chatbot and show the minimized button (logo)
+      closeBtn.addEventListener("click", () => {
+        chatbot.style.display = "none"; // Hide the chatbot
+        chatbotButton.style.display = "flex"; // Show the logo
+      });
+
+      // Handle sending messages
+      sendBtn.addEventListener("click", () => {
+        const userMessage = chatInput.value.trim();
+        if (userMessage) {
+          displayMessage(userMessage, "user");
+          chatInput.value = ""; // Clear input field
+          handleUserMessage(userMessage); // Process user message
+        }
+      });
+
+      // Handle user message input and display response
+      function handleUserMessage(userMessage) {
+        if (isCommandSelected) {
+          // If a command was selected, respond to it
+          respondToCommand(userMessage);
+        } else {
+          if (userMessage.toLowerCase() === "hello") {
+            setTimeout(() => {
+              displayMessage(
+                "Hello! How can I assist you today? Type 'commands' to see the options.",
+                "bot"
+              );
+            }, 1000);
+          } else if (userMessage.toLowerCase() === "commands") {
+            displayCommandOptions();
+          } else {
+            setTimeout(() => {
+              displayMessage(
+                "Sorry, I didn't understand that. Type 'commands' to see a list of options.",
+                "bot"
+              );
+            }, 1000);
+          }
+        }
+      }
+
+      // Display command options
+      function displayCommandOptions() {
+        isCommandSelected = false;
+        const options = [
+          "1. Registration",
+          "2. Profile Management",
+          "3. Pension Application",
+          "4. Pension Processing",
+          "5. Payment Management",
+          "6. Notifications",
+          "7. Help",
+        ];
+
+        options.forEach((option) => {
+          displayMessage(option, "bot");
+        });
+        displayMessage(
+          "Please type the command number you are interested in.",
+          "bot"
+        );
+      }
+
+      // Respond to the user's selected command
+      function respondToCommand(command) {
+        switch (command.toLowerCase()) {
+          case "1":
+          case "registration":
+            displayMessage(
+              "You can register as a pensioner, administrator, or financial institution. Please visit the registration page to start.",
+              "bot"
+            );
+            break;
+          case "2":
+          case "profile management":
+            displayMessage(
+              "You can update your personal info, view pension status, and history. Would you like to update your profile?",
+              "bot"
+            );
+            break;
+          case "3":
+          case "pension application":
+            displayMessage(
+              "You can submit a pension application here. Make sure to upload required documents.",
+              "bot"
+            );
+            break;
+          case "4":
+          case "pension processing":
+            displayMessage(
+              "Pension processing involves eligibility check, document verification, and pension calculation.",
+              "bot"
+            );
+            break;
+          case "5":
+          case "payment management":
+            displayMessage(
+              "You can track and schedule pension payments through this system.",
+              "bot"
+            );
+            break;
+          case "6":
+          case "notifications":
+            displayMessage(
+              "You will receive SMS notifications about application status and payment updates.",
+              "bot"
+            );
+            break;
+          case "7":
+          case "help":
+            displayMessage(
+              "For help, you can contact our support team at support@epension.com.",
+              "bot"
+            );
+            break;
+          default:
+            displayMessage(
+              "Sorry, I didn't understand that command. Please type a valid command number.",
+              "bot"
+            );
+        }
+        isCommandSelected = false; // Reset command selection after response
+      }
+
+      // Display messages in the chat window
+      function displayMessage(message, sender) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${sender}`;
+        messageDiv.textContent = message;
+        chatWindow.appendChild(messageDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to bottom
+      }
+    </script>
+  </body>
+</html>

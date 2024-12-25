@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment History - E-Pension System</title>
+    <style>
+      /* General Styling (same as previous pages) */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
+
+      #sidebar {
+        height: 100%;
+        width: 250px;
+        background-color: #003580;
+        position: fixed;
+        top: 0;
+        left: -250px;
+        transition: 0.3s;
+        padding-top: 20px;
+      }
+
+      #sidebar.active {
+        left: 0;
+      }
+
+      #sidebar a {
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        transition: 0.3s;
+      }
+
+      #sidebar a:hover {
+        background-color: #002a63;
+      }
+
+      .main-content {
+        margin-left: 0;
+        transition: margin-left 0.3s;
+        padding: 20px;
+      }
+
+      .main-content.active {
+        margin-left: 250px;
+      }
+
+      header {
+        background-color: #003580;
+        color: white;
+        padding: 1rem 2rem;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .container h2 {
+        color: #004aad;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+      }
+
+      .table th,
+      .table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .table th {
+        background-color: #003580;
+        color: white;
+      }
+
+      .table td {
+        background-color: #f9f9f9;
+      }
+
+      .status {
+        font-weight: bold;
+      }
+
+      .status.success {
+        color: green;
+      }
+
+      .status.failed {
+        color: red;
+      }
+
+      .status.pending {
+        color: orange;
+      }
+
+      .action-buttons {
+        text-align: center;
+      }
+
+      .action-buttons button {
+        padding: 10px 20px;
+        background-color: #004aad;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+      }
+
+      .action-buttons button:hover {
+        background-color: #003580;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="profile.html">Profile</a>
+      <a href="pension_management.html">Pension Management</a>
+      <a href="track_application.html">Track Application</a>
+      <a href="payment_history.html">Payment History</a>
+      <a href="raise_issue.html">Raise Issue</a>
+      <a href="update_profile.html">Update Profile</a>
+      <a href="logout.html">Logout</a>
+      <a href="main_page.html">Go to Main Page</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <button class="sidebar-btn" onclick="toggleSidebar()">&#9776;</button>
+
+      <!-- Header Section -->
+      <header>
+        <h1>Payment History</h1>
+      </header>
+
+      <!-- Main Content Section -->
+      <div class="container">
+        <h2>Your Payment History</h2>
+
+        <!-- Payment Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Payment Date</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Transaction ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nov 15, 2024</td>
+              <td>$1,500</td>
+              <td><span class="status success">Success</span></td>
+              <td>TXN123456789</td>
+            </tr>
+            <tr>
+              <td>Oct 1, 2024</td>
+              <td>$1,500</td>
+              <td><span class="status success">Success</span></td>
+              <td>TXN123456788</td>
+            </tr>
+            <tr>
+              <td>Sep 10, 2024</td>
+              <td>$1,500</td>
+              <td><span class="status failed">Failed</span></td>
+              <td>TXN123456787</td>
+            </tr>
+            <tr>
+              <td>Aug 5, 2024</td>
+              <td>$1,500</td>
+              <td><span class="status pending">Pending</span></td>
+              <td>TXN123456786</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Actions -->
+        <div class="action-buttons">
+          <button onclick="window.location.href='raise_issue.html'">
+            Raise an Issue
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.querySelector(".main-content");
+
+        sidebar.classList.toggle("active");
+        mainContent.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

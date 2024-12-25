@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Pension System - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #004aad;
+            --secondary-color: #00a859;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 74, 173, 0.9), rgba(0, 74, 173, 0.8)), url('images/pension-bg.jpg');
+            background-size: cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .feature-card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            height: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .notification-section {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+        }
+
+        .btn-primary:hover {
+            background: #003580;
+        }
+
+        .stats-counter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 0.5rem 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0;
+        }
+
+        .navbar-brand img {
+            max-height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .navbar-brand span {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .dropdown-item {
+            padding: 0.7rem 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/images/aplogo.webp}" alt="AP Government Logo" height="50">
+                <span>E-Pension System</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/about}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contact}">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Login
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/login}">Login</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4 mb-4">Welcome to E-Pension System</h1>
+            <p class="lead mb-4">Streamlined pension management for a secure retirement</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a th:href="@{/login}" class="btn btn-light btn-lg">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Key Features</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card card p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h4>Secure Registration</h4>
+                        <p>Multi-factor authentication for pensioners, administrators, and financial institutions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card card p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h4>Easy Application</h4>
+                        <p>Streamlined pension application process with document upload and status tracking.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card card p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h4>Payment Management</h4>
+                        <p>Secure payment processing with real-time tracking and automated notifications.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="service-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Services</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h4>Profile Management</h4>
+                        <ul class="list-unstyled">
+                            <li>✓ Update personal information</li>
+                            <li>✓ View pension status</li>
+                            <li>✓ Track payment history</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h4>Pension Processing</h4>
+                        <ul class="list-unstyled">
+                            <li>✓ Eligibility verification</li>
+                            <li>✓ Document validation</li>
+                            <li>✓ Automated calculations</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h4>Payment Services</h4>
+                        <ul class="list-unstyled">
+                            <li>✓ Direct bank transfers</li>
+                            <li>✓ Payment scheduling</li>
+                            <li>✓ Digital receipts</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h4>Smart Notifications</h4>
+                        <ul class="list-unstyled">
+                            <li>✓ SMS payment alerts</li>
+                            <li>✓ Application updates</li>
+                            <li>✓ Document reminders</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>24/7 Support</h4>
+                        <ul class="list-unstyled">
+                            <li>✓ Live chat assistance</li>
+                            <li>✓ Issue resolution</li>
+                            <li>✓ Query handling</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Secure System</h4>
+                        <ul class="list-unstyled">
+                            <li>✓ Data encryption</li>
+                            <li>✓ Secure transactions</li>
+                            <li>✓ Privacy protection</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notification Section -->
+    <section class="notification-section">
+        <div class="container text-center">
+            <h2 class="mb-4">Smart Notification System</h2>
+            <p class="lead">We ensure timely pension disbursement through our automated notification system</p>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="mb-4">
+                        <i class="fas fa-clock fa-3x"></i>
+                    </div>
+                    <h4>5-Day Check</h4>
+                    <p>Automatic payment verification within 5 days of the month</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-4">
+                        <i class="fas fa-sms fa-3x"></i>
+                    </div>
+                    <h4>SMS Alerts</h4>
+                    <p>Instant SMS notifications for payment confirmation</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-4">
+                        <i class="fas fa-exclamation-circle fa-3x"></i>
+                    </div>
+                    <h4>Issue Resolution</h4>
+                    <p>Quick response system for delayed payments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-5">Trust in Numbers</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stats-counter">100K+</div>
+                    <p>Registered Pensioners</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-counter">99.9%</div>
+                    <p>On-time Payments</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-counter">24/7</div>
+                    <p>Customer Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section text-center">
+        <div class="container">
+            <h2 class="mb-4">Ready to Get Started?</h2>
+            <p class="lead mb-4">Join thousands of satisfied pensioners who trust our system</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a th:href="@{/login}" class="btn btn-primary btn-lg">Login</a>
+                <a th:href="@{/register}" class="btn btn-outline-primary btn-lg">Register Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: support@epension.com<br>
+                    Phone: 1800-XXX-XXXX</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a th:href="@{/about}" class="text-light">About Us</a></li>
+                        <li><a th:href="@{/faq}" class="text-light">FAQs</a></li>
+                        <li><a th:href="@{/contact}" class="text-light">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p class="mb-0"> 2024 E-Pension System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

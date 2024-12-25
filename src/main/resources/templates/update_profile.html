@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Profile - E-Pension System</title>
+    <style>
+      /* General Styling (same as previous pages) */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
+
+      #sidebar {
+        height: 100%;
+        width: 250px;
+        background-color: #003580;
+        position: fixed;
+        top: 0;
+        left: -250px;
+        transition: 0.3s;
+        padding-top: 20px;
+      }
+
+      #sidebar.active {
+        left: 0;
+      }
+
+      #sidebar a {
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        transition: 0.3s;
+      }
+
+      #sidebar a:hover {
+        background-color: #002a63;
+      }
+
+      .main-content {
+        margin-left: 0;
+        transition: margin-left 0.3s;
+        padding: 20px;
+      }
+
+      .main-content.active {
+        margin-left: 250px;
+      }
+
+      header {
+        background-color: #003580;
+        color: white;
+        padding: 1rem 2rem;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .container h2 {
+        color: #004aad;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        font-size: 1.1rem;
+        color: #003580;
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-top: 0.5rem;
+      }
+
+      textarea {
+        height: 150px;
+      }
+
+      button {
+        padding: 12px 25px;
+        background-color: #004aad;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+        width: 100%;
+      }
+
+      button:hover {
+        background-color: #003580;
+      }
+
+      .sidebar-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 30px;
+        cursor: pointer;
+        background-color: #003580;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="profile.html">Profile</a>
+      <a href="pension_management.html">Pension Management</a>
+      <a href="track_application.html">Track Application</a>
+      <a href="payment_history.html">Payment History</a>
+      <a href="raise_issue.html">Raise Issue</a>
+      <a href="update_profile.html">Update Profile</a>
+      <a href="logout.html">Logout</a>
+      <a href="main_page.html">Go to Main Page</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <button class="sidebar-btn" onclick="toggleSidebar()">&#9776;</button>
+
+      <!-- Header Section -->
+      <header>
+        <h1>Update Profile</h1>
+      </header>
+
+      <!-- Main Content Section -->
+      <div class="container">
+        <h2>Update Your Profile Information</h2>
+
+        <!-- Profile Update Form -->
+        <form id="update-profile-form">
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input
+              type="text"
+              id="full-name"
+              name="full-name"
+              value="[Pensioner Name]"
+              required
+            />
+          </div>
+
+          <!-- Email Address -->
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value="[Pensioner Email]"
+              required
+            />
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              value="[Pensioner Phone]"
+              required
+            />
+          </div>
+
+          <!-- Address -->
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" required>
+[Pensioner Address]</textarea
+            >
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit">Update Profile</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.querySelector(".main-content");
+
+        sidebar.classList.toggle("active");
+        mainContent.classList.toggle("active");
+      }
+
+      // Handle form submission
+      document
+        .getElementById("update-profile-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const fullName = document.getElementById("full-name").value;
+          const email = document.getElementById("email").value;
+          const phone = document.getElementById("phone").value;
+          const address = document.getElementById("address").value;
+
+          // Send the updated data to the backend
+          fetch("/api/update-profile", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              fullName,
+              email,
+              phone,
+              address,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert("Your profile has been updated successfully!");
+              } else {
+                alert(
+                  "There was an error updating your profile. Please try again."
+                );
+              }
+            });
+        });
+    </script>
+  </body>
+</html>
